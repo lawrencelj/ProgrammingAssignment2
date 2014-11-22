@@ -1,6 +1,11 @@
 ## Jian Liang completed on 22nd Nov 2014 for R Programming Assignment 2
 
 ## This function creates a special "matrix" object that can cache its inverse
+## It has following 4 functions:
+## getm() (get the initial matrix, return a matrix), 
+## setm() (set the origional matrix, return a bo),
+## getinvm() (get the inverse matrix), 
+## setinvm() (assign the inverse matrix)
 
 makeCacheMatrix <- function(x = matrix()) {
   ## Initialized inverse matrix
@@ -42,28 +47,14 @@ makeCacheMatrix <- function(x = matrix()) {
     return TRUE
   } 
   
-  ## If there is no initialized matrix, a NULL value will
-  ## be returned.
   getinvm <- Function(){
-    if(!is.na(x)){
-      Inverse <<- solve(x)
-      return Inverse
-    }
-    else{
-      warning("Please use setm() to assign a non-NA matrix")
-      return NULL
-    }
+    Inverse
   }
   
   list(setm = setm, getm = getm,
         setinvm = setinvm,
         getinvm = getinvm)
-    
-    
   }
-  
-  
-  
 
 }
 
@@ -74,5 +65,9 @@ makeCacheMatrix <- function(x = matrix()) {
 
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
+  invm <-x$getinvm()
+  if (!is.null(invm)){
+    
+  }
   
 }
