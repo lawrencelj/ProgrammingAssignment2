@@ -26,7 +26,7 @@ makeCacheMatrix <- function(x = matrix()) {
   }
   
   getm <- function(){
-    x
+    return(x)
   }
   
   ## This function is to store inverse matrix when origional
@@ -37,25 +37,23 @@ makeCacheMatrix <- function(x = matrix()) {
     if(is.na(x)){
       warning("There is no matrix initialized yet, please provid a matrix
               before given a inverse matrix")
-      return FALSE
+      return(FALSE)
     }
     else if (is.na(inv)){
       warning("Empty matrix is not acceptable as inverse matrix")
-      return FALSE
+      return(FALSE)
     }
     Inverse<<-inv
-    return TRUE
+    return(TRUE)
   } 
   
-  getinvm <- Function(){
-    Inverse
+  getinvm <- function(){
+    return(Inverse)
   }
   
   list(setm = setm, getm = getm,
         setinvm = setinvm,
         getinvm = getinvm)
-  }
-
 }
 
 
@@ -66,16 +64,16 @@ makeCacheMatrix <- function(x = matrix()) {
 cacheSolve <- function(x, ...) {
 
   ## Valuated if X is a valid matrix, if not, return NULL as result
-  if(class(x)!="matrix" | is.null(x) | is.NA(x)){
+  if(class(x)!="matrix" | is.null(x) | is.na(x)){
     warning("Passed variable is not a valid Matrix class object")
-    return NULL
+    return(NULL)
   }
   
   invm <- x$getinvm()
   mat <- x$getm()
   
   ## Check if the inverse is not null or matrix has no changed
-  if (!is.null(invm)&identical(x,mat)){
+  if (!is.null(invm) & identical(x,mat)){
     return (invm)
   }
   
