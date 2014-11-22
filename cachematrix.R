@@ -65,7 +65,7 @@ makeCacheMatrix <- function(x = matrix()) {
 
 cacheSolve <- function(x, ...) {
 
-  ## valuated if X is a valid matrix, if not, return NULL as result
+  ## Valuated if X is a valid matrix, if not, return NULL as result
   if(class(x)!="matrix" | is.null(x) | is.NA(x)){
     warning("Passed variable is not a valid Matrix class object")
     return NULL
@@ -74,12 +74,12 @@ cacheSolve <- function(x, ...) {
   invm <- x$getinvm()
   mat <- x$getm()
   
-  ##check if the inverse is not null or matrix has no changed
+  ## Check if the inverse is not null or matrix has no changed
   if (!is.null(invm)&identical(x,mat)){
     return (invm)
   }
   
-  ##When inverse matrix is NULL calculate and return
+  ## When inverse matrix is NULL calculate and return
   
   message("Getting inverse matrix")
   
