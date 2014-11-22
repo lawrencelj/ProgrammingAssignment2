@@ -4,8 +4,8 @@
 ## It has following 4 functions:
 ## getm() (get the initial matrix, return a matrix), 
 ## setm() (set the origional matrix, return a bo),
-## getinvm() (get the inverse matrix), 
-## setinvm() (assign the inverse matrix)
+## getinvm() (get the inverse matrix, return the inverse matrix), 
+## setinvm() (assign the inverse matrix, cache inverse matrix)
 
 makeCacheMatrix <- function(x = matrix()) {
   ## Initialized inverse matrix
@@ -65,7 +65,7 @@ cacheSolve <- function(x, ...) {
 
   ## Valuated if X is a valid matrix, if not, return NULL as result
   if(class(x)!="matrix" | is.null(x) | is.na(x)){
-    warning("Passed variable is not a valid Matrix class object")
+    warning("Passed variable is not a valid matrix class object")
     return(NULL)
   }
   
