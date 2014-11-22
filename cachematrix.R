@@ -64,10 +64,28 @@ makeCacheMatrix <- function(x = matrix()) {
 ## then the cachesolve should retrieve the inverse from the cache.
 
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
-  invm <-x$getinvm()
-  if (!is.null(invm)){
-    
+
+  ## valuated if X is a valid matrix, if not, return NULL as result
+  if(class(x)!="matrix" | is.null(x) | is.NA(x)){
+    warning("Passed variable is not a valid Matrix class object")
+    return NULL
   }
   
+  invm <- x$getinvm()
+  mat <- x$getm()
+  
+  ##check if the inverse is not null or matrix has no changed
+  if (!is.null(invm)&identical(x,mat)){
+    return (invm)
+  }
+  
+  ##When inverse matrix is NULL calculate and return
+  
+  message("Getting inverse matrix")
+  
+  invm <- solve(x)
+  if(!x$setinvm(invm)){
+    warning("Either matrix is empty matrix")
+  }
+  return (invm)
 }
