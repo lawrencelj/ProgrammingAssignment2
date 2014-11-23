@@ -34,12 +34,16 @@ makeCacheMatrix <- function(x = matrix()) {
   ## if a matrix is inversible. When assign successfully, it
   ## will return TRUE, otherwise FALSE
   setinvm <- function(inv){
-    if(is.na(x)){
+    if(class(inv)!="matrix"| is.null(inv)){
+      warning("The object type passed in is not matrix")
+      return(FALSE)
+    }
+    else if(is.na(x[[1]])){
       warning("There is no matrix initialized yet, please provid a matrix
               before given a inverse matrix")
       return(FALSE)
     }
-    else if (is.na(inv)){
+    else if (is.na(inv[[1]])){
       warning("Empty matrix is not acceptable as inverse matrix")
       return(FALSE)
     }
@@ -48,7 +52,7 @@ makeCacheMatrix <- function(x = matrix()) {
   } 
   
   getinvm <- function(){
-    return(Inverse)
+    Inverse
   }
   
   list(setm = setm, getm = getm,
@@ -59,31 +63,37 @@ makeCacheMatrix <- function(x = matrix()) {
 
 ## This function computes the inverse of the special "matrix" returned by makeCacheMatrix above. 
 ## If the inverse has already been calculated (and the matrix has not changed), 
-## then the cachesolve should retrieve the inverse from the cache.
+## then the cachesolve should retrieve the inverse from the cache. otherwise it calculates the 
+## inverse matrix assign to cache and return
 
 cacheSolve <- function(x, ...) {
 
   ## Valuated if X is a valid matrix, if not, return NULL as result
-  if(class(x)!="matrix" | is.null(x) | is.na(x)){
+  if(class(x)!="matrix" | is.null(x)){
     warning("Passed variable is not a valid matrix class object")
     return(NULL)
   }
+  
   
   invm <- x$getinvm()
   mat <- x$getm()
   
   ## Check if the inverse is not null or matrix has no changed
-  if (!is.null(invm) & identical(x,mat)){
+  ##if (!is.null(invm) & identical(x,mat)){
+  
+  if (!is.null(invm)){
+    message("cache exist")
     return (invm)
   }
   
-  ## When inverse matrix is NULL calculate and return
+  ## When inverse matrix is not in cache, calculate and return
   
-  message("Getting inverse matrix")
+  ## message("Cache not exist")
   
   invm <- solve(x)
   if(!x$setinvm(invm)){
     warning("Either matrix is empty matrix")
   }
+  ## message("Inverse Matrix cached")
   return (invm)
 }
