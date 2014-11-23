@@ -3,7 +3,7 @@
 ## This function creates a special "matrix" object that can cache its inverse
 ## It has following 4 functions:
 ## getm() (get the initial matrix, return a matrix), 
-## setm() (set the origional matrix, return a bo),
+## setm() (set the origional matrix, return a boolean value),
 ## getinvm() (get the inverse matrix, return the inverse matrix), 
 ## setinvm() (assign the inverse matrix, cache inverse matrix)
 
@@ -16,12 +16,20 @@ makeCacheMatrix <- function(x = matrix()) {
   ## matrix will be store , and a warning message will
   ## be given. other
   setm <- function(mat){
-    if(class(mat)=="matrix" & mat!=NULL){
-      x<<-mat
-      Inverse <<-NULL
+    
+    if(length(mat) == 0){
+      
+      warning("Matrix passed in is in length of 0")
+      return(FALSE)
+    }
+    if(class(mat) == "matrix" & mat != NULL){
+      x <<- mat
+      Inverse <<- NULL
+      return(TRUE)
     }
     else{
       warning("Please ensure you pass a matrix class valuable as parameter.")
+      return(FALSE)
     }
   }
   
